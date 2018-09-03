@@ -34,17 +34,23 @@ var renderBarChart = function (ctx, name, time) {
 
   for (var i = 0; i < name.length; i++) {
     ctx.fillStyle = '#000';
-    ctx.fillText(Math.round(time[i]), CLOUD_X + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - GAP * 2 - TEXT_HEIGHT - (BAR_HEIGHT * Math.round(time[i])) / maxTime);
+    ctx.fillText(Math.round(time[i]), currentColumnX, currentColumnY - GAP);
+    ctx.fillText(name[i], currentColumnX, CLOUD_HEIGHT - GAP);
 
     ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     if (name[i] !== 'Вы') {
-      ctx.fillStyle = 'rgb(0, 0, 255, ' + Math.round((Math.random() * 1) * 10) / 10 + ')';
+      var random = parseFloat(Math.random().toFixed(2) || 0.01);
+      while (random === 0) {
+        random = parseFloat(Math.random().toFixed(2) || 0.01);
+      }
+      ctx.fillStyle = 'rgb(0, 0, 255, ' + random + ')';
     }
 
-    ctx.fillRect(CLOUD_X + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - GAP - TEXT_HEIGHT, BAR_WIDTH, -((BAR_HEIGHT * Math.round(time[i])) / maxTime));
+    var currentColumnHeight = (BAR_HEIGHT * Math.round(time[i])) / maxTime;
+    var currentColumnX = CLOUD_X + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i;
+    var currentColumnY = CLOUD_HEIGHT - GAP - TEXT_HEIGHT - currentColumnHeight;
 
-    ctx.fillStyle = '#000';
-    ctx.fillText(name[i], CLOUD_X + BAR_GAP + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - GAP);
+    ctx.fillRect(currentColumnX, currentColumnY, BAR_WIDTH, currentColumnHeight);
   }
 };
 
