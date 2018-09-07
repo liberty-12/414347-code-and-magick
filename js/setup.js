@@ -34,3 +34,23 @@ var renderWizardFeatures = function (fNames, lNames, cColors, eColors) {
 };
 
 var wizards = renderWizardFeatures(firstNames, lastNames, coatColors, eyesColors);
+
+var renderWizard = function (wizard) {
+  var wizardElement = similarWizardTemplate.cloneNode(true);
+
+  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+
+  return wizardElement;
+};
+
+var fragment = document.createDocumentFragment();
+
+wizards.forEach(function (item, i) {
+  fragment.appendChild(renderWizard(wizards[i]));
+});
+
+similarListElement.appendChild(fragment);
+
+userDialog.querySelector('.setup-similar').classList.remove('hidden');
