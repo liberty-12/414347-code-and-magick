@@ -23,8 +23,18 @@ var renderWizardFeatures = function (fNames, lNames, cColors, eColors) {
   return persons;
 };
 
-var showElement = function (element) {
-  element.classList.remove('hidden');
+var showElement = function (selector) {
+  if (typeof (selector) === 'string') {
+    var element = document.querySelector(selector);
+    element.classList.remove('hidden');
+  } else {
+    selector.classList.remove('hidden');
+  }
+};
+
+var showUserDialog = function () {
+  showElement('.setup');
+  showElement('.setup-similar');
 };
 
 var renderWizard = function (wizard, template) {
@@ -38,10 +48,9 @@ var renderWizard = function (wizard, template) {
 };
 
 var fragment = document.createDocumentFragment();
-var userDialog = document.querySelector('.setup');
 
 var addWizardsToDOM = function (persons) {
-  var similarListElement = userDialog.querySelector('.setup-similar-list');
+  var similarListElement = document.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template')
       .content
       .querySelector('.setup-similar-item');
@@ -54,6 +63,5 @@ var addWizardsToDOM = function (persons) {
 };
 
 var wizards = renderWizardFeatures(firstNames, lastNames, coatColors, eyesColors);
-showElement(userDialog);
-showElement(userDialog.querySelector('.setup-similar'));
+showUserDialog();
 addWizardsToDOM(wizards);
