@@ -6,7 +6,7 @@ var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)
 var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
 
 var getRandom = function (arr) {
-  return arr[(Math.random() * (arr.length - 1)).toFixed(0)];
+  return arr[Math.floor((Math.random() * arr.length))];
 };
 
 var renderWizardFeatures = function (fNames, lNames, cColors, eColors) {
@@ -23,12 +23,11 @@ var renderWizardFeatures = function (fNames, lNames, cColors, eColors) {
   return persons;
 };
 
-var showElement = function (selector) {
-  if (typeof (selector) === 'string') {
-    var element = document.querySelector(selector);
-    element.classList.remove('hidden');
+var showElement = function (target) {
+  if (typeof (target) === 'string') {
+    document.querySelector(target).classList.remove('hidden');
   } else {
-    selector.classList.remove('hidden');
+    target.classList.remove('hidden');
   }
 };
 
